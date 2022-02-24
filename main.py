@@ -1,18 +1,23 @@
 from config import CONFIG
-from dao.ProfessionalsDaoImpl import ProfessionalsDaoImpl
-from dao.ProfessionalsDao import ProfessionalsDao
+
+import firebase_admin
+from firebase_admin import credentials
+
+from pipelines.articles_pipeline import ArticlesPipeline
 
 def main(args):
-  career_paths_to_fetch = {
+
+
+  career_paths = {
     'Software Engineering': { 
         'limit': 1000,
         'locations': ['New York', 'San Francisco'] 
     }
   }
-  article_topics_to_fetch = {
+  news_topics = {
     'software engineering',
-    'machine learning',
     'blockchain',
+    'machine learning',
     'quantum computing',
     'artificial intelligence',
     'data mining',
@@ -30,6 +35,8 @@ def main(args):
     'natural language processing',
     'robotics'
   }
+  articles_pipeline = ArticlesPipeline(args, news_topics)
+  articles_pipeline.run()
 
 if __name__ == '__main__':
     main(CONFIG)
