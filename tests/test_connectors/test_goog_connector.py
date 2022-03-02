@@ -1,12 +1,8 @@
 import pytest
-from connectors.goog_connector import GoogConnector
-
-@pytest.fixture
-def goog(args):
-    return GoogConnector(args)
+import connectors.goog_connector as goog
 
 @pytest.mark.integration
-def test_get(goog: GoogConnector):
+def test_get():
     q = {'q': 'google', 'num': 1}
     response = goog.get('crawl', q)
     assert 'results' in response

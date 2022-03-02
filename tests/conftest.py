@@ -1,33 +1,29 @@
 import pytest
-from config import CONFIG
+from config.config import CONFIG
 import firebase_admin
 
-
 @pytest.fixture
-def args():
-    return CONFIG
+def initialize_firebase_app():
+  self.cred = credentials.Certificate(CONFIG['firebase_config'])
+  firebase_admin.initialize_app(self.cred, {
+    'projectId': CONFIG['firebase_project'],
+  })
 
 @pytest.fixture
 def news_topics():
-    return [
-      'software engineering',
-    ]
+  return ['software engineering']
 
 @pytest.fixture
-def career_paths_to_fetch():
-    return { 
-      'Software Engineering': { 
-        'limit': 10,
-        'locations': ['New York'] 
-      } 
-    }
+def professionals_to_fetch():
+  return {
+    'software engineer': {
+      'limit': 1,
+      'domains': ['machine learning'],
+      'locations': ['New York']
+    },
+  }
 
-@pytest.fixture
-def initialize_firebase_app(args):
-  self.cred = credentials.Certificate(args['firebase_config'])
-  firebase_admin.initialize_app(self.cred, {
-    'projectId': args['firebase_project'],
-  })
+  
 
 
 

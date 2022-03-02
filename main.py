@@ -1,26 +1,29 @@
-from config import CONFIG
+from config.config import CONFIG
 
 import firebase_admin
 from firebase_admin import credentials
 
 from pipelines.articles_pipeline import ArticlesPipeline
+from pipelines.professionals_pipeline import ProfessionalsPipeline
+
+#structure user interests like
+'''
+{
+  '... other user data'.
+  'positions': [],
+  'domains': [],
+  'locations': [],
+}
+'''
 
 def main(args):
 
-
-  career_paths = {
-    'Software Engineering': { 
-        'limit': 1000,
-        'locations': ['New York', 'San Francisco'] 
-    }
-  }
-  news_topics = {
-    'software engineering',
-    'blockchain',
-    'machine learning',
-    'quantum computing',
-    'artificial intelligence',
-    'data mining',
+  interests = [
+    'blockchain', 
+    'machine learning', 
+    'quantum computing', 
+    'artificial intelligence', 
+    'data mining', 
     'big data',
     'virtual reality',
     'augmented reality',
@@ -30,13 +33,40 @@ def main(args):
     'crypto',
     'devops',
     'ui ux',
-    'fintech',
-    'internet of things',
+    'payments',
     'natural language processing',
-    'robotics'
+    'robotics',
+    'react js',
+    'frontend',
+    'backend',
+    'full stack development',
+    'distributed systems',
+    'growth',
+    'Capital One', 
+    'Facebook', 
+    'Google', 
+    'Microsoft', 
+    'Amazon'
+  ]
+
+  locations = ['New York', 'San Francisco', 'Chicago', 'Boston', 'Washington DC']
+
+  fetch_info = {'limit': 10, 'domains': interests, 'locations': locations}
+
+  professionals_to_fetch = {
+    # 'software engineer': fetch_info,
+    # 'senior software engineer': fetch_info,
+    # 'product manager': fetch_info,
+    # 'senior product manager': fetch_info,
+    # 'vp of engineering': fetch_info,
+    'vp of product': fetch_info
   }
-  articles_pipeline = ArticlesPipeline(args, news_topics)
-  articles_pipeline.run()
+
+  # articles_pipeline = ArticlesPipeline(interests)
+  # articles_pipeline.run()
+  professionals_pipeline = ProfessionalsPipeline(professionals_to_fetch)
+  professionals_pipeline.run()
+  
 
 if __name__ == '__main__':
     main(CONFIG)

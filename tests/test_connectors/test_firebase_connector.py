@@ -1,14 +1,8 @@
 import pytest
-from connectors.firebase_connector import FirebaseConnector
-
-@pytest.fixture
-def firebase(args):
-    fc = FirebaseConnector(args)
-    assert fc.cred is not None
-    return fc
+import connectors.firebase_connector as firebase
 
 @pytest.mark.integration
-def test_get_firestore_client(firebase: FirebaseConnector):
+def test_get_firestore_client():
     db = firebase.get_firestore_client()
     test_doc_ref = db.collection(u'tests').document(u'testConnection')
     test_doc = test_doc_ref.get()

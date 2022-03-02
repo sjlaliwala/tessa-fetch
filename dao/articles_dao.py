@@ -1,26 +1,28 @@
-from connectors.goog_connector import GoogConnector
-from connectors.firebase_connector import FirebaseConnector
+import connectors.goog_connector as goog
+import connectors.firebase_connector as firebase
+import datetime
 
 class ArticlesDao():
-    NEWS = 'news'
+  NEWS = 'news'
 
-    def __init__(self, args):
-      self.goog = GoogConnector(args)
-      self.db = FirebaseConnector(args).get_firestore_client()
-      self.batch = self.db.batch()
+  def __init__(self):
+    self.db = firebase.get_firestore_client()
+    self.batch = self.db.batch()
 
-    def fetch_articles_by_topic(self, topic):
-      query = {
-        'q': topic,
-      }
-      news_response = self.goog.get(self.NEWS, query)
-      return news_response['entries']
-
-    def batch_add_new_articles(self, news_article_batch):
-      for id, article in news_article_batch.items():
-        article_ref = self.db.collection('articles').document(id)
-        self.batch.set(article_ref, article)
-      self.batch.commit()
+  def batch_add_news_articles(self, news_article_batch):
+    for news_article in news_article_batch:
+      news_article['created'] = datetime.datetime.now()
+      news_article_ref = self.db.collection('news').document()
+      self.batch.set(news_article_ref, news_article)
+    self.batch.commit()
       
+  def fetch_news_articles_by_topic(self, topic):
+    query = {
+      'q': topic,
+    }
+    news_response = goog.get(self.NEWS, query)
+    return news_response['entries']
+
+
 
 

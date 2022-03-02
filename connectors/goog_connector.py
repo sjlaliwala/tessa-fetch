@@ -1,14 +1,9 @@
 import urllib
-import requests 
+import requests
+from config.headers import GOOG_HEADERS
 
-class GoogConnector():
-  GOOG_BASE_URL = 'https://api.goog.io/v1'
-  def __init__(self, args):
-    self.headers = {
-        'apikey': args['goog_api_key']
-    }
-
-  def get(self, endpoint, query):
-    url = f'{self.GOOG_BASE_URL}/{endpoint}/{urllib.parse.urlencode(query)}'
-    return requests.get(url, headers=self.headers).json()
+GOOG_BASE_URL = 'https://api.goog.io/v1'
+def get(endpoint, query):
+  url = f'{GOOG_BASE_URL}/{endpoint}/{urllib.parse.urlencode(query)}'
+  return requests.get(url, headers=GOOG_HEADERS).json()
 
