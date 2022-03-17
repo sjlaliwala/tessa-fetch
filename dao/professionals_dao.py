@@ -1,12 +1,6 @@
-import json
 import connectors.goog_connector as goog
 import connectors.firebase_connector as firebase
 import datetime
-from time import sleep
-import math
-import urllib
-from config.headers import GOOG_HEADERS
-import requests
 
 class ProfessionalsDao():
   LINKEDIN_SITE_RESTRICTION = 'site:linkedin.com/in'
