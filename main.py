@@ -21,8 +21,8 @@ def main(args):
   interests = [
     'blockchain', 
     'machine learning', 
-    'quantum computing', 
-    'artificial intelligence', 
+    'quantum computing',
+    'artificial intelligence',
     'data mining', 
     'big data',
     'virtual reality',
@@ -46,24 +46,30 @@ def main(args):
     'Facebook', 
     'Google', 
     'Microsoft', 
-    'Amazon'
+    'Amazon',
+    'Tesla', 
+    'crypto',
+    'artificial intelligence',
+    'augmented reality',
   ]
 
-  locations = ['New York', 'San Francisco', 'Chicago', 'Boston', 'Washington DC']
+  locations = ['new york']
 
-  fetch_info = {'limit': 10, 'domains': interests, 'locations': locations}
+  fetch_info = {'limit': 3, 'domains': interests, 'locations': locations}
 
   professionals_to_fetch = {
-    # 'software engineer': fetch_info,
-    # 'senior software engineer': fetch_info,
-    # 'product manager': fetch_info,
-    # 'senior product manager': fetch_info,
-    # 'vp of engineering': fetch_info,
-    'vp of product': fetch_info
+    'software engineer': fetch_info,
+    'senior software engineer': fetch_info,
+    'product manager': fetch_info,
+    'senior product manager': fetch_info,
+    'vp of engineering': fetch_info,
+    'software engineer': fetch_info,
+    'senior product manager': fetch_info,
+    'vp of engineering': fetch_info
   }
 
-  # articles_pipeline = ArticlesPipeline(interests)
-  # articles_pipeline.run()
+  articles_pipeline = ArticlesPipeline(interests)
+  articles_pipeline.run()
   professionals_pipeline = ProfessionalsPipeline(professionals_to_fetch)
   professionals_pipeline.run()
   
