@@ -1,5 +1,6 @@
 import connectors.goog_connector as goog
 import connectors.firebase_connector as firebase
+from config.table_names import PROFESSIONALS
 import datetime
 
 class ProfessionalsDao():
@@ -15,7 +16,7 @@ class ProfessionalsDao():
   def batch_add_professionals(self, professionals_batch):
     for professional in professionals_batch:
       professional['created'] = datetime.datetime.now()
-      professional_ref = self.db.collection('professionals').document()
+      professional_ref = self.db.collection(PROFESSIONALS).document()
       self.batch.set(professional_ref, professional)
     self.batch.commit()
 

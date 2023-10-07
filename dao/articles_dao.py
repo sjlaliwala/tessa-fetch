@@ -1,5 +1,6 @@
 import connectors.goog_connector as goog
 import connectors.firebase_connector as firebase
+from config.table_names import NEWS
 import datetime
 
 class ArticlesDao():
@@ -12,7 +13,7 @@ class ArticlesDao():
   def batch_add_news_articles(self, news_article_batch):
     for news_article in news_article_batch:
       news_article['created'] = datetime.datetime.now()
-      news_article_ref = self.db.collection('news').document()
+      news_article_ref = self.db.collection(NEWS).document()
       self.batch.set(news_article_ref, news_article)
     self.batch.commit()
       
